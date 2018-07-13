@@ -1,0 +1,183 @@
+/*
+ * Sample CSS for adding new styles to the /style directory of the Superfish library.
+ * 
+ * Instructions:
+ *
+ * 1. Replace the STYLENAME (below) with the name of the new style.
+ *    For example, if the style name is drupal, the class will be sf-style-drupal .
+ *
+ * 2. Save the file as CSS with the style name as its name.
+ *    For example, if the style name is drupal the file will be drupal.css and therefore
+ *    libraries/superfish/style/drupal.css.
+ *
+ * 3. That's it! go to the block conifguration, use the new style, make sure everything is right :)
+ *
+ */
+
+.sf-menu.sf-style-digtialgallery {
+  float: left;
+  margin-bottom: 1em;
+  padding: 0;
+}
+.sf-depth-1 {
+  font-size: 16px;
+}
+.sf-menu.sf-style-digtialgallery.sf-navbar {
+  width: 100%;
+}
+.sf-menu.sf-style-digtialgallery ul {
+  padding-left: 0;
+}
+.sf-menu.sf-style-digtialgallery a,
+.sf-menu.sf-style-digtialgallery span.nolink {
+  /*border: 1px solid #000;*/
+  color: #23d1dd;
+  padding: 0.75em 1em;
+  text-align: center; 
+}
+.sf-menu.sf-style-digtialgallery a.sf-with-ul,
+.sf-menu.sf-style-digtialgallery span.nolink.sf-with-ul {
+  padding-right: 2.25em;
+}
+.sf-menu.sf-style-digtialgallery.rtl a.sf-with-ul,
+.sf-menu.sf-style-digtialgallery.rtl span.nolink.sf-with-ul {
+  padding-left: 2.25em;
+  padding-right: 1em;
+}
+.sf-menu.sf-style-digtialgallery span.sf-description {
+  color: #23d1dd;
+  display: block;
+  font-size: 0.833em;
+  line-height: 1.5;
+  margin: 5px 0 0 5px;
+  padding: 0;
+}
+.sf-menu.sf-style-digtialgallery.rtl span.sf-description {
+  margin: 5px 5px 0 0;
+}
+.sf-menu.sf-style-digtialgallery li,
+.sf-menu.sf-style-digtialgallery li li li,
+.sf-menu.sf-style-digtialgallery.sf-navbar {
+  background: #000;
+}
+.sf-menu.sf-style-digtialgallery.sf-navbar li > ul > li {
+  float:none;
+  padding:0.25em 0;
+  display: inline-block;
+}
+.sf-menu.sf-style-digtialgallery li li {
+  background: #333;
+  margin:1em 0;
+}
+.sf-menu.sf-style-digtialgallery li li > a {
+  border-right: 1px solid #f1f1f1;
+  padding:0em 1em;
+}
+.sf-menu.sf-style-digtialgallery li li.last > a {
+  border-right: 0;
+}
+.sf-menu.sf-style-digtialgallery li:hover,
+.sf-menu.sf-style-digtialgallery li.sfHover,
+.sf-menu.sf-style-digtialgallery a:focus,
+.sf-menu.sf-style-digtialgallery a:hover,
+.sf-menu.sf-style-digtialgallery a:active,
+.sf-menu.sf-style-digtialgallery span.nolink:hover {
+  background: #333;
+  color:#b6d6e1;
+  text-decoration: none;
+}
+.sf-menu.sf-style-digitalgallery li:hover > ul,
+.sf-menu.sf-style-digtialgallery li.sfHover > ul {
+  padding-left: 0;
+  background-color: #333;
+  text-align: center;
+}
+.sf-navbar li li:hover > ul {
+  top:2em;
+}
+.sf-menu.sf-style-digtialgallery li:hover > ul,
+.sf-menu.sf-style-digtialgallery li.sfHover > ul {
+  top: 2em;
+}
+.sf-menu.sf-style-digtialgallery .sf-sub-indicator {
+  background-image: url('../images/dropdown-arrows.png');
+}
+div.sf-accordion-toggle.sf-style-digtialgallery a {
+  background: #f0f0f0;
+  color: #0000ff;
+  padding: 1em;
+}
+div.sf-accordion-toggle.sf-style-digtialgallery a.sf-expanded,
+.sf-menu.sf-style-digtialgallery.sf-accordion li.sf-expanded {
+  background-color: #c0c0c0;
+}
+div.sf-accordion-toggle.sf-style-digtialgallery a.sf-expanded,
+.sf-menu.sf-style-digtialgallery.sf-accordion li.sf-expanded > a,
+.sf-menu.sf-style-digtialgallery.sf-accordion li.sf-expanded > span.nolink {
+  font-weight: bold;
+}
+.sf-menu.sf-style-digtialgallery.sf-accordion li a.sf-accordion-button {
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 499;
+}
+.sf-menu.sf-style-digtialgallery.sf-accordion li li a,
+.sf-menu.sf-style-digtialgallery.sf-accordion li li span.nolink {
+  padding-left: 2em;
+}
+.sf-menu.sf-style-digtialgallery.sf-accordion li li li a,
+.sf-menu.sf-style-digtialgallery.sf-accordion li li li span.nolink {
+  padding-left: 3em;
+}
+.sf-menu.sf-style-digtialgallery.sf-accordion li li li li a,
+.sf-menu.sf-style-digtialgallery.sf-accordion li li li li span.nolink {
+  padding-left: 4em;
+}
+.sf-menu.sf-style-digtialgallery.sf-accordion li li li li li a,
+.sf-menu.sf-style-digtialgallery.sf-accordion li li li li li span.nolink {
+  padding-left: 5em;
+}
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li a,
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li span.nolink {
+  padding-left: auto;
+  padding-right: 2em;
+}
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li li a,
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li li span.nolink {
+  padding-left: auto;
+  padding-right: 3em;
+}
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li li li a,
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li li li span.nolink {
+  padding-left: auto;
+  padding-right: 4em;
+}
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li li li li a,
+.sf-menu.sf-style-digtialgallery.rtl.sf-accordion li li li li li span.nolink {
+  padding-left: auto;
+  padding-right: 5em;
+}
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper ol,
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper ol li {
+  margin: 0;
+  padding: 0;
+}
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper a.menuparent,
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper span.nolink.menuparent {
+  font-weight: bold;
+}
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper {
+  background: #c0c0c0;
+}
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper li {
+  background: transparent;
+}
+.sf-menu.sf-style-digtialgallery ul.sf-megamenu li.sf-megamenu-wrapper ol li.sf-megamenu-column {
+  display: inline;
+  float: left;
+}
+.sf-menu.sf-style-digtialgallery.rtl ul.sf-megamenu li.sf-megamenu-wrapper ol li.sf-megamenu-column {
+  float: right;
+}
