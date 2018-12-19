@@ -1,4 +1,18 @@
 
+Slick extras 7.x-2.0-dev, 2018-12-19
+------------------------------------
+- Updated and refined samples.
+
+Slick extras 7.x-2.0-dev, 2016-06-10
+------------------------------------
+- Added "Use CSS background" option to block_fullscreen to simplify the
+  cumbersome "inline css" normally provided via hook_slick_skins_info().
+
+Slick extras 7.x-2.0-dev, 2016-03-23
+------------------------------------
+- Remove redundant asNavFor selectors as per 2692887.
+- Fixed for cropped Thumbnail asNavFor skin due to extra centerPadding.
+
 Slick extras 7.x-2.0-dev, 2015-12-12
 ------------------------------------
 - Updated for Slick 1.5.9.

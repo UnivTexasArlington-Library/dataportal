@@ -1,38 +1,23 @@
 <?php
+
 /**
  * @file
  * Contains functions called only by admin pages.
  */
 
 /**
- * Off-loaded SlickViews::option_definition().
+ * Returns available fields for select options.
  */
-function _slick_views_option_definition() {
-  $options = array(
-    'editor_link'         => array('default' => ''),
-    'slide_thumbnail'     => array('default' => ''),
-    'slide_field_wrapper' => array('default' => FALSE),
-    'id'                  => array('default' => ''),
-  );
-
-  foreach (slick_get_global_default_settings() as $key => $value) {
-    $options[$key] = array('default' => $value);
-  }
-
-  drupal_alter('slick_views_options_info', $options);
-  return $options;
-}
-
-/**
- * Off-loaded SlickViews::options_form().
- */
-function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
+function slick_views_get_defined_field_options($view) {
   $fields = $view->display_handler->get_handlers('field');
-  $slick_fields = url(drupal_get_path('module', 'slick_fields') . '/README.txt');
 
-  $elements = $image_options = $caption_options = $layout_options = $slide_classes = array();
-  $editor_options = $title_options = $tn_caption_options = $link_options = array();
-
+  $options = array();
+  $classes = array(
+    'list_text',
+    'entityreference',
+    'taxonomy_term_reference',
+    'text',
+  );
   foreach ($fields as $field => $handler) {
     if (isset($handler->field_info)) {
       $type = $handler->field_info['type'];
@@ -40,11 +25,15 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
       switch ($type) {
         case 'file':
         case 'image':
-          $image_options[$field] = $handler->ui_name();
+        case 'youtube':
+        case 'video_embed_field':
+          $options['images'][$field] = $handler->ui_name();
+          $options['overlays'][$field] = $handler->ui_name();
+          $options['thumbnails'][$field] = $handler->ui_name();
           break;
 
         case 'list_text':
-          $layout_options[$field] = $handler->ui_name();
+          $options['layouts'][$field] = $handler->ui_name();
           break;
 
         case 'entityreference':
@@ -52,40 +41,65 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
         case 'text_long':
         case 'text_with_summary':
         case 'link_field':
-          $link_options[$field] = $handler->ui_name();
-          $title_options[$field] = $handler->ui_name();
+          $options['links'][$field] = $handler->ui_name();
+          $options['titles'][$field] = $handler->ui_name();
           if ($type != 'link_field') {
-            $tn_caption_options[$field] = $handler->ui_name();
+            $options['thumb_captions'][$field] = $handler->ui_name();
           }
           break;
       }
-    }
-
-    if (in_array($type, array('list_text', 'entityreference', 'taxonomy_term_reference', 'text'))) {
-      $slide_classes[$field] = $handler->ui_name();
+      if (in_array($type, $classes)) {
+        $options['classes'][$field] = $handler->ui_name();
+      }
     }
 
     // Content: title is not really a field, unless title.module installed.
     if ($handler->field == 'title') {
-      $slide_classes[$field] = $handler->ui_name();
-      $title_options[$field] = $handler->ui_name();
-      $tn_caption_options[$field] = $handler->ui_name();
+      $options['classes'][$field] = $handler->ui_name();
+      $options['titles'][$field] = $handler->ui_name();
+      $options['thumb_captions'][$field] = $handler->ui_name();
+    }
+
+    if ($handler->field == 'nothing') {
+      $options['classes'][$field] = $handler->ui_name();
+      $options['links'][$field] = $handler->ui_name();
     }
 
     if ($handler->field == 'view_node') {
-      $link_options[$field] = $handler->ui_name();
-    }
-
-    if ($handler->field == 'edit_node' || $handler->field == 'delete_node') {
-      $editor_options[$field] = $handler->ui_name();
+      $options['links'][$field] = $handler->ui_name();
     }
 
     // Caption can be anything to get custom works going.
-    $caption_options[$field] = $handler->ui_name();
+    $options['captions'][$field] = $handler->ui_name();
   }
-  
-  $layout_builtin = slick_layouts();
-  $layout_options = $layout_options ? $layout_options : $layout_builtin;
+
+  return $options;
+}
+
+/**
+ * Off-loaded SlickViews::options_form().
+ */
+function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
+  $elements = array();
+
+  $fields = array(
+    'captions',
+    'classes',
+    'fieldable',
+    'images',
+    'layouts',
+    'links',
+    'overlays',
+    'thumbnails',
+    'thumb_captions',
+    'titles',
+  );
+
+  $options = slick_views_get_defined_field_options($view);
+  $definition = array();
+  foreach ($fields as $key) {
+    $definition[$key] = isset($options[$key]) ? $options[$key] : array();
+  }
 
   slick_get_top_elements($elements, $settings, $form_state);
   slick_get_grid_elements($elements, $settings, $form_state);
@@ -96,78 +110,34 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
     '#description' => t('If checked, Slick will provide its markups for the following fields, ignoring Views row/field template suggestions. This is relevant for the provided skins as Slick needs to know what to style. Simply uncheck it to turn all Views row/field templates back on with your custom works. For more complex slide (asNavFor + nested/overlay + main BG altogether), be sure to apply filter criteria and skin properly.'),
   );
 
-  $elements['slide_layout'] = array(
+  slick_get_fieldable_elements($elements, $settings, $definition);
+
+  // http://en.wikipedia.org/wiki/List_of_common_resolutions
+  $ratio = array('1:1', '3:2', '4:3', '8:5', '16:9', 'fluid');
+  $elements['aspect_ratio'] = array(
     '#type'        => 'select',
-    '#title'       => t('Slide layout'),
-    '#options'     => $layout_options + $layout_builtin,
-    '#prefix'      => '<h3 class="form--slick__title">' . t('Fields') . '</h3>',
-    '#description' => t('Two options: <ol><li>A custom list text field, to control each slide layout. Choose "key" under its Formatter.</li><li>Builtin layouts, to apply uniformly to all slides.</li></ol>Leave empty to DIY. <a href="@url">Read more</a> about layouts.', array('@url' => $slick_fields)),
+    '#title'       => t('Aspect ratio'),
+    '#options'     => drupal_map_assoc($ratio),
+    '#description' => t('Aspect ratio to get consistently responsive images within responsive layout. This also fixes layout reflow and excessive height issues with lazyload ondemand. <a href="@dimensions" target="_blank">Image styles and video dimensions</a> must <a href="@follow" target="_blank">follow the ratio</a>, otherwise your images will be unexpectedly distorted. <a href="@link" target="_blank">Learn more</a>, or leave empty if you care not for aspect ratio, or prefer to DIY, etc. Choose fluid if unsure. Requires Image formatter for Main Image option, and the default <strong>Use field template</strong> unchecked under its <strong>Style settings</strong>, ignore if you don\'t know.', array(
+      '@dimensions' => '//size43.com/jqueryVideoTool.html',
+      '@follow'     => '//en.wikipedia.org/wiki/Aspect_ratio_%28image%29',
+      '@link'       => '//www.smashingmagazine.com/2014/02/27/making-embedded-content-work-in-responsive-design/',
+    )),
+    '#weight'       => 62,
+    '#states'       => array(
+      'visible' => array(
+        ':input[name*="[slide_image]"]' => array('!value' => ''),
+      ),
+    ),
   );
 
-  $elements['slide_title'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Slide title'),
-    '#options'     => $title_options,
-    '#description' => t('If provided, it will be wrapped with H2 and class .slide__title.'),
-  );
+  $elements['slide_image']['#description'] = t('Main image, treated as background if overlay is provided. It will be lazy-loaded if the Formatter is <strong>Image</strong> and lazyLoad is enabled. Only one image is displayed per slide, even if it is a multi-value field. Enable <strong>Aspect ratio</strong> below to fix empty space issue with lazyloaded images.');
 
-  $elements['slide_image'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Main image'),
-    '#options'     => $image_options,
-    '#description' => t('Main image, treated as background if overlay is provided. It will be lazy-loaded if the Formatter is <strong>Image</strong> and lazyLoad is enabled. Only one image is displayed per slide, even if it is a multi-value field.'),
-  );
+  $elements['slide_overlay']['#description'] = t('For audio/video, be sure the display is not image. For nested slicks, use the Slick carousel formatter for this field. Zebra layout is reasonable for overlay and captions.');
 
-  $elements['slide_thumbnail'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Thumbnail image'),
-    '#options'     => $image_options,
-    '#description' => t("Only needed if <em>Option set thumbnail</em> is provided. Maybe the same field as the main image, only different instance. Leave empty to not use thumbnail pager."),
-  );
+  $elements['slide_thumbnail']['#description'] = t("Only needed if <em>Option set thumbnail</em> is provided. Maybe the same field as the main image, only different instance. Leave empty to not use thumbnail pager.");
 
-  $elements['thumbnail_caption'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Thumbnail caption'),
-    '#options'     => $tn_caption_options,
-    '#description' => t('Thumbnail caption maybe just title/ plain text. If Thumbnail image is not provided, the thumbnail pagers will be just text like regular tabs.'),
-  );
-
-  $elements['slide_overlay'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Overlay media/slicks'),
-    '#options'     => $image_options,
-    '#description' => t('For audio/video, be sure the display is not image. For nested slicks, use the Slick carousel formatter for this field. Zebra layout is reasonable for overlay and captions.'),
-  );
-
-  $elements['slide_link'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Link'),
-    '#options'     => $link_options,
-    '#description' => t('Link to content: Read more, View Case Study, etc, wrapped with class .slide__link.'),
-  );
-
-  $elements['editor_link'] = array(
-    '#type'        => 'select',
-    '#title'       => t('Editor link'),
-    '#options'     => $editor_options,
-    '#description' => t('Link for editor: edit, delete. Leave empty if Cache is enabled.'),
-  );
-
-  $slide_captions = is_array($settings['slide_caption']) ? array_values($settings['slide_caption']) : $settings['slide_caption'];
-  $elements['slide_caption'] = array(
-    '#type'          => 'checkboxes',
-    '#title'         => t('Caption fields'),
-    '#description'   => t("Select fields for the caption, excluding those already selected above."),
-    '#options'       => $caption_options,
-    '#default_value' => $slide_captions,
-  );
-
-  $elements['slide_classes'] = array(
-    '#title'       => t('Slide class'),
-    '#type'        => 'select',
-    '#options'     => $slide_classes,
-    '#description' => t('If provided, individual slide will have this class, e.g.: to have different background with transparent images and skin Split, or Slick filtering. Be sure to have a Key, Label or Plain text under Formatter without links accordingly. Supported fields: Node title, Entityreference, Taxonomy term, List, Text.'),
-  );
+  $elements['slide_classes']['#description'] = t('If provided, individual slide will have this class, e.g.: to have different background with transparent images and skin Split, or Slick filtering. Be sure to have a Key, Label or Plain text under Formatter without links accordingly. Supported fields: Node title, Entityreference, Taxonomy term, List, Text. Only works if using Fields under Format > Show.');
 
   $elements['id'] = array(
     '#type'         => 'textfield',
@@ -181,6 +151,7 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
   slick_get_elements($elements, $settings, $form_state);
 
   drupal_alter('slick_views_options_form', $elements, $settings);
+
   slick_get_admin_assets($elements, $settings);
 
   $form['slick'] = array(
@@ -204,7 +175,6 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
     'skin_dots',
     'slide_classes',
     'id',
-    'asnavfor_main',
     'grid',
     'slide_field_wrapper',
     'override',
@@ -217,6 +187,9 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
     if (isset($elements[$key]['#states'])) {
       continue;
     }
+    if (!isset($elements[$key]['#type'])) {
+      continue;
+    }
     if (!in_array($key, $no_markups)) {
       $form['slick'][$key]['#states'] = array(
         'visible' => array(
@@ -225,21 +198,11 @@ function _slick_views_options_form(&$form, &$form_state, $view, $settings) {
       );
     }
 
-    if (in_array($key, array('thumbnail_caption', 'asnavfor_auto'))) {
+    if (in_array($key, array('thumbnail_caption'))) {
       $form['slick'][$key]['#states'] = array(
         'invisible' => array(
           array('select[name*="[optionset_thumbnail]"]' => array('value' => '')),
           array(':input[name*="[slide_field_wrapper]"]' => array('checked' => FALSE)),
-        ),
-      );
-    }
-
-    if (in_array($key, array('asnavfor_main', 'asnavfor_thumbnail'))) {
-      $form['slick'][$key]['#states'] = array(
-        'invisible' => array(
-          array('select[name*="[optionset_thumbnail]"]' => array('value' => '')),
-          array(':input[name*="[slide_field_wrapper]"]' => array('checked' => FALSE)),
-          array(':input[name*="[asnavfor_auto]"]' => array('checked' => TRUE)),
         ),
       );
     }

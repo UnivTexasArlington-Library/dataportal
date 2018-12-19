@@ -18,7 +18,6 @@ function slick_views_views_plugins() {
         'theme file' => 'slick_views.theme.inc',
         'theme path' => drupal_get_path('module', 'slick_views') . '/templates',
         'uses row plugin' => TRUE,
-        // 'uses fields' => TRUE,
         'uses options' => TRUE,
         'type' => 'normal',
         'even empty' => FALSE,

@@ -17,7 +17,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_3d_back';
-  $preset->label = 'X 3d back';
+  $preset->label = 'X Main 3d back';
   $preset->breakpoints = 2;
   $preset->skin = '3d-back';
   $preset->options = array(
@@ -73,7 +73,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => 'cubic-bezier(0.470, 0.000, 0.745, 0.715)',
       'cssEaseOverride' => 'easeInSine',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -115,7 +115,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -156,7 +156,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -173,7 +173,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_blog';
-  $preset->label = 'X Blog';
+  $preset->label = 'X Main Blog';
   $preset->breakpoints = 0;
   $preset->skin = 'default';
   $preset->options = array(
@@ -229,7 +229,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -243,7 +243,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_carousel';
-  $preset->label = 'X Carousel';
+  $preset->label = 'X Main Carousel';
   $preset->breakpoints = 4;
   $preset->skin = 'default';
   $preset->options = array(
@@ -299,7 +299,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -341,7 +341,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -382,7 +382,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -423,7 +423,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -464,7 +464,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -481,7 +481,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_fullscreen';
-  $preset->label = 'X Fullscreen';
+  $preset->label = 'X Main Fullscreen';
   $preset->breakpoints = 1;
   $preset->skin = 'fullscreen';
   $preset->options = array(
@@ -537,7 +537,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -579,7 +579,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -596,7 +596,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_grid';
-  $preset->label = 'X Grid';
+  $preset->label = 'X Main Grid';
   $preset->breakpoints = 0;
   $preset->skin = 'grid';
   $preset->options = array(
@@ -652,7 +652,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -666,7 +666,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_main';
-  $preset->label = 'X Main';
+  $preset->label = 'X Main Fullwidth';
   $preset->breakpoints = 1;
   $preset->skin = 'fullwidth';
   $preset->options = array(
@@ -722,7 +722,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -764,7 +764,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -781,7 +781,7 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_slick_for';
-  $preset->label = 'X Slick for';
+  $preset->label = 'X Main Slick for';
   $preset->breakpoints = 0;
   $preset->skin = 'classic';
   $preset->options = array(
@@ -837,7 +837,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -851,9 +851,9 @@ function slick_example_slick_default_presets() {
   $preset->disabled = FALSE; /* Edit this to true to make a default preset disabled initially */
   $preset->api_version = 1;
   $preset->name = 'x_slick_nav';
-  $preset->label = 'X Slick nav';
+  $preset->label = 'X Thumbnail Slick nav';
   $preset->breakpoints = 2;
-  $preset->skin = 'default';
+  $preset->skin = 'asnavfor';
   $preset->options = array(
     'general' => array(
       'normal' => 'slick_140x80',
@@ -880,7 +880,7 @@ function slick_example_slick_default_presets() {
       'prevArrow' => '<button type="button" data-role="none" class="slick-prev">Previous</button>',
       'nextArrow' => '<button type="button" data-role="none" class="slick-next">Next</button>',
       'centerMode' => TRUE,
-      'centerPadding' => '50px',
+      'centerPadding' => '0',
       'dots' => TRUE,
       'dotsClass' => 'slick-dots',
       'appendDots' => '$(element)',
@@ -907,7 +907,7 @@ function slick_example_slick_default_presets() {
       'cssEase' => 'ease',
       'cssEaseBezier' => '',
       'cssEaseOverride' => '',
-      'useTransform' => FALSE,
+      'useTransform' => TRUE,
       'easing' => 'linear',
       'variableWidth' => FALSE,
       'vertical' => FALSE,
@@ -949,7 +949,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,
@@ -990,7 +990,7 @@ function slick_example_slick_default_presets() {
             'cssEase' => 'ease',
             'cssEaseBezier' => '',
             'cssEaseOverride' => '',
-            'useTransform' => FALSE,
+            'useTransform' => TRUE,
             'easing' => 'linear',
             'variableWidth' => FALSE,
             'vertical' => FALSE,

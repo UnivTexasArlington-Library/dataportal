@@ -1,4 +1,45 @@
 
+Slick views 7.x-2.1-dev, 2018-12-19
+-----------------------------------
+- Yeeeha! 7.x-2.1 is out after 3 years of dev storms.
+
+Slick views 7.x-2.0-dev, 2017-06-01
+-----------------------------------
+- #2882663 by gausarts, giupenni: Notice: Undefined property: view::$row_index
+  in template_preprocess_views_view_fields().
+
+Slick views 7.x-2.0-dev, 2016-09-06
+-----------------------------------
+- #2795415 by gausarts: Support aspect ratio.
+- Fixed for regression with mistakenly being overridden slide_classes.
+
+Slick views 7.x-2.0-dev, 2016-06-19
+-----------------------------------
+- Allowed Slick to run at least the lazyload on an unslick.
+
+Slick views 7.x-2.0-dev, 2016-06-16
+-----------------------------------
+- Fixed for empty slide_classes with custom fields.
+
+Slick views 7.x-2.0-dev, 2016-06-10
+-----------------------------------
+- Added support for Global Nothing field for Link and Slide classes options.
+
+Slick views 7.x-2.0-dev, 2016-04-25
+-----------------------------------
+- #2712385 by cosolom: Support YouTube Field and Video Embed Field.
+
+Slick views 7.x-2.0-dev, 2016-03-28
+-----------------------------------
+- A few cleanups.
+
+Slick views 7.x-2.0-dev, 2016-03-23
+-----------------------------------
+- Remove redundant asNavFor selectors as per 2692887.
+- Removed problematic editor link, since it is always disabled when cached.
+- Simplified lengthy ::render().
+- Fixed for Undefined index: type at _slick_views_options_form().
+
 Slick views 7.x-2.0-dev, 2015-12-12
 -----------------------------------
 - A few cleanup for full release.

@@ -101,31 +101,7 @@ function slick_example_slick_skins_info_alter(array &$skins) {
 // $skins['fullwidth']['css'] = $css;
 }
 // */
-/**
- * Implements hook_slick_attach_info_alter().
- *
- * @param array $attach
- *   The associative array of attach information from slick_attach().
- * @param array $settings
- *   An array of settings to check for the supported features.
- *
- * @see slick_attach()
- */
-/* -- Delete this line if you want to use this function.
-function slick_example_slick_attach_info_alter(array &$attach, $settings) {
-// Disable core Slick CSS: sites/../libraries/slick/slick/slick-theme.css
-// $attach['attach_slick_css'] = FALSE;
 
-// Disable module JS: slick.load.min.js to use your own slick JS.
-// $attach['attach_module_js'] = FALSE;
-
-// Disable module CSS: slick/css/theme/slick.theme.css
-// $attach['attach_module_css'] = FALSE;
-
-// Disabled inline CSS after copying the output to theme at final stage.
-// $attach['attach_inline_css'] = NULL;
-}
-// */
 /**
  * Implements hook_image_default_styles().
  */
@@ -153,6 +129,7 @@ function slick_example_image_default_styles() {
           'width' => 140,
           'height' => 80,
         ),
+        'weight' => 0,
       ),
     ),
   );
@@ -165,6 +142,7 @@ function slick_example_image_default_styles() {
           'width' => 300,
           'height' => 300,
         ),
+        'weight' => 0,
       ),
     ),
   );
@@ -177,6 +155,7 @@ function slick_example_image_default_styles() {
           'width' => 600,
           'height' => 600,
         ),
+        'weight' => 0,
       ),
     ),
   );
@@ -189,6 +168,7 @@ function slick_example_image_default_styles() {
           'width' => 600,
           'height' => 460,
         ),
+        'weight' => 0,
       ),
     ),
   );
@@ -201,6 +181,7 @@ function slick_example_image_default_styles() {
           'width' => 600,
           'height' => 320,
         ),
+        'weight' => 0,
       ),
     ),
   );
@@ -213,6 +194,7 @@ function slick_example_image_default_styles() {
           'width' => 640,
           'height' => 360,
         ),
+        'weight' => 0,
       ),
     ),
   );
@@ -225,6 +207,7 @@ function slick_example_image_default_styles() {
           'width' => 1280,
           'height' => 520,
         ),
+        'weight' => 0,
       ),
     ),
   );

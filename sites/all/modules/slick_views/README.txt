@@ -9,12 +9,26 @@ want to configure your Views display using Slick carousel through the web
 interface. This ensures you can leave Views UI off once everything is setup.
 
 
+DEPENDENCIES:
+--------------------------------------------------------------------------------
+o Views [1]
+o Slick 2.x above. [2]
+
+Be sure to install the Slick example[3] to avoid adventures in the first place.
+
+[1] http://dgo.to/views
+[2] http://dgo.to/slick
+[3] http://dgo.to/slick_extras
+
 OPTIONSETS:
 --------------------------------------------------------------------------------
 
 Arm yourself with proper optionsets. To create one, go to:
 
 "admin/config/media/slick"
+
+Be sure to install the Slick UI module first, included in the main Slick module,
+otherwise no such URL, and regular access denied error.
 
 
 USAGE:
