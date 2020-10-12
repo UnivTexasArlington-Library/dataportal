@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Definition of views_bootstrap_plugin_style.
@@ -8,6 +9,7 @@
  * Class to define a style plugin handler.
  */
 class ViewsBootstrapTablePluginStyle extends views_plugin_style_table {
+
   /**
    * Definition.
    */
@@ -22,7 +24,7 @@ class ViewsBootstrapTablePluginStyle extends views_plugin_style_table {
   /**
    * Form.
    */
-  function options_form(&$form, &$form_state) {
+  public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
     $form['responsive'] = array(
@@ -44,4 +46,5 @@ class ViewsBootstrapTablePluginStyle extends views_plugin_style_table {
       ),
     );
   }
+
 }

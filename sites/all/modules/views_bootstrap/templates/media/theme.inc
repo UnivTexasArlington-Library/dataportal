@@ -1,7 +1,12 @@
 <?php
 
 /**
- * Implementation of template preprocess for the view.
+ * @file
+ * Preprocessors and helper functions for panel theming.
+ */
+
+/**
+ * Implements hook_preprocess_HOOK().
  */
 function template_preprocess_views_bootstrap_media_plugin_style(&$vars) {
   $view = &$vars['view'];

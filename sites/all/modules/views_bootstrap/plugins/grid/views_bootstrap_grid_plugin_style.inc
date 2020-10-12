@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Definition of views_bootstrap_plugin_style.
@@ -8,6 +9,7 @@
  * Class to define a style plugin handler.
  */
 class ViewsBootstrapGridPluginStyle extends views_plugin_style {
+
   /**
    * Definition.
    */
@@ -28,7 +30,7 @@ class ViewsBootstrapGridPluginStyle extends views_plugin_style {
   /**
    * Form.
    */
-  function options_form(&$form, &$form_state) {
+  public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
     $form['alignment'] = array(
@@ -154,4 +156,5 @@ class ViewsBootstrapGridPluginStyle extends views_plugin_style {
       '#default_value' => $this->options['column_class'],
     );
   }
+
 }
