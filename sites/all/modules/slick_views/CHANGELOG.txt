@@ -1,4 +1,18 @@
 
+Slick views 7.x-2.1-dev, 2020-01-08
+-----------------------------------
+- Issue #2907948 by CRZDEV, maestro888, gausarts, digitaltodd: Library not 
+  attached and slide is broken if no results & using exposed filters with 
+  ajax.
+
+Slick views 7.x-2.1-dev, 2018-12-19
+-----------------------------------
+- Issue #3022558 by Kunal.Udani, dat deaf drupaler: Undefined offset: 0 
+  in SlickViews->buildElements()
+- Issue #2907948 by CRZDEV: Library not attached and slide is broken if no 
+  results & using exposed filters with ajax
+
+
 Slick views 7.x-2.1-dev, 2018-12-19
 -----------------------------------
 - Yeeeha! 7.x-2.1 is out after 3 years of dev storms.

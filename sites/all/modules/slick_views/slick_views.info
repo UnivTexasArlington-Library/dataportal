@@ -8,8 +8,8 @@ dependencies[] = slick
 
 files[] = SlickViews.inc
 
-; Information added by Drupal.org packaging script on 2018-12-19
-version = "7.x-2.1"
+; Information added by Drupal.org packaging script on 2020-01-08
+version = "7.x-2.2"
 core = "7.x"
 project = "slick_views"
-datestamp = "1545225193"
+datestamp = "1578493689"

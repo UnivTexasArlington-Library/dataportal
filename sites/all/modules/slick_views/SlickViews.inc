@@ -15,7 +15,9 @@ class SlickViews extends views_plugin_style {
   public function init(&$view, &$display, $options = NULL) {
     parent::init($view, $display, $options);
     // Even empty active to call render; where library is attached if required.
-    $this->definition['even empty'] = TRUE;
+    if ($view->use_ajax) {
+      $this->definition['even empty'] = TRUE;
+    }
   }
 
   /**
@@ -160,7 +162,7 @@ class SlickViews extends views_plugin_style {
 
     // Defines image dimensions once if applicable to reduce function calls.
     // Think of tons of images with Slick grid.
-    if (!empty($stage)) {
+    if (!empty($stage) && !empty($rows)) {
       $image = $this->getFieldData($rows[0], $stage);
 
       // Not-empty behavior and filter fail, so add own check here.
