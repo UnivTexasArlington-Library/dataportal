@@ -17,7 +17,7 @@ class ViewsBootstrapMediaPluginStyle extends views_plugin_style {
     $options = parent::option_definition();
     $options['image_field'] = array('default' => NULL);
     $options['heading_field'] = array('default' => NULL);
-    $options['body_field'] = array('default' => NULL);
+    $options['image_class'] = array('default' => 'media-left');
     return $options;
   }
 
@@ -35,12 +35,17 @@ class ViewsBootstrapMediaPluginStyle extends views_plugin_style {
         }
       }
 
+      $form['help'] = array(
+        '#markup' => t('The Bootstrap media object displays content with an image item lead with heading and text (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/media-object']),
+        '#weight' => -99,
+      );
+
       $form['image_field'] = array(
         '#type' => 'select',
         '#title' => t('Image field'),
         '#options' => $options,
         '#default_value' => $this->options['image_field'],
-        '#description' => t('Select the field that will be used as the image.'),
+        '#description' => t('Select the field that will be used as the image. Exclude this field from display to prevent duplication.'),
       );
 
       $form['heading_field'] = array(
@@ -48,16 +53,25 @@ class ViewsBootstrapMediaPluginStyle extends views_plugin_style {
         '#title' => t('Heading field'),
         '#options' => $options,
         '#default_value' => $this->options['heading_field'],
-        '#description' => t('Select the field that will be used as the heading.'),
+        '#description' => t('Select the field that will be used as the heading. Exclude this field from display to prevent duplication.'),
       );
 
       $form['body_field'] = array(
-        '#type' => 'select',
         '#title' => t('Body field'),
-        '#options' => $options,
-        '#default_value' => $this->options['body_field'],
-        '#description' => t('Select the field that will be used as the body.'),
+        '#markup' => t('All fields that are not excluded from display will be shown as the body.'),
       );
+
+      $form['image_class'] = array(
+        '#type' => 'radios',
+        '#title' => t('Image Alignment'),
+        '#options' => [
+          'media-left' => t('Left'),
+          'media-right' => t('Right'),
+        ],
+        '#default_value' => $this->options['image_class'],
+        '#description' => t('Align the media object image left or right.'),
+      );
+
     }
   }
 

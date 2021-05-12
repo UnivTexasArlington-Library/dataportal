@@ -172,7 +172,6 @@ function _views_bootstrap_preprocess_views_style_plugin_prepare_grid_vertical(&$
   $vars['items'] = _views_bootstrap_split_rows_vertical($vars['rows'], $options['columns_vertical']);
 }
 
-
 /**
  * Implements hook_help().
  */
@@ -182,21 +181,21 @@ function views_bootstrap_help($path, $arg) {
       $output = '<h2>' . t('Views Bootstrap') . '</h2>';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('The <a href="!bootstrap">Views Bootstrap module</a> adds styles to Views to output the results of a view as several common <a href="!components">Twitter Bootstrap</a> components.', [
-          '!bootstrap' => 'https://www.drupal.org/project/views_bootstrap',
-          '!components' => 'https://getbootstrap.com/docs/3.4/components/',
-        ]) . '</p>';
+        '!bootstrap' => 'https://www.drupal.org/project/views_bootstrap',
+        '!components' => 'https://getbootstrap.com/docs/3.4/components/',
+      ]) . '</p>';
       $output .= '<h3>' . t('Uses') . '</h3>';
       $output .= '<p>' . t('<a href="!views">Create a view</a> using one of the following styles:', ['!views' => '/admin/structure/views/add']) . '</p>';
       $output .= '<ul>';
-      $output .= '<li>' . t('<a href="!docs">Accordion</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/javascript/#collapse-example-accordion']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Carousel</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/javascript/#carousel']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Dropdown</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/components/#dropdowns']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Grid</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/css/#grid']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Thumbnails</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/components/#thumbnails']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Tables</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/css/#tables']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Tabs</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/javascript/#tabs']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">Media object</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/components/#media']) . '</li>';
-      $output .= '<li>' . t('<a href="!docs">List group</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/components/#list-group']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Accordion</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/accordion']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Carousel</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/carousel']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Dropdown</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/dropdown']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Grid</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/grid']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Thumbnails</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/thumbnail']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Tables</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/table']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Tabs</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/tabs']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">Media object</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/media-object']) . '</li>';
+      $output .= '<li>' . t('<a href="!docs">List group</a>', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/list-group']) . '</li>';
       $output .= '<ul>';
       return $output;
   }

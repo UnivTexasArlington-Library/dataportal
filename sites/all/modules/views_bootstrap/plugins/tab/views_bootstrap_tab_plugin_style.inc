@@ -36,6 +36,11 @@ class ViewsBootstrapTabPluginStyle extends views_plugin_style {
         }
       }
 
+      $form['help'] = array(
+        '#markup' => t('The Bootstrap tabs displays content with tab titles linked to dynamically displayed content (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/tabs']),
+        '#weight' => -99,
+      );
+
       $form['tab_field'] = array(
         '#type' => 'select',
         '#title' => t('Tab field'),

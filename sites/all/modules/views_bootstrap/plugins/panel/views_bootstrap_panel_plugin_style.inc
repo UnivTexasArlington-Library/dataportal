@@ -18,7 +18,7 @@ class ViewsBootstrapPanelPluginStyle extends views_plugin_style {
     $options['heading_field'] = array('default' => NULL);
     $options['title'] = array('default' => FALSE);
     $options['title_tag'] = array('default' => 'h3');
-    $options['body_field'] = array('default' => NULL);
+    $options['label_field'] = array('default' => NULL);
     $options['footer_field'] = array('default' => NULL);
     $options['context'] = array('default' => 'default');
     return $options;
@@ -38,6 +38,11 @@ class ViewsBootstrapPanelPluginStyle extends views_plugin_style {
         }
       }
 
+      $form['help'] = array(
+        '#markup' => t('The Bootstrap panels displays content in a box with optional header and footer elements (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/panels']),
+        '#weight' => -99,
+      );
+
       $form['heading_field'] = array(
         '#type' => 'select',
         '#title' => t('Heading field'),
@@ -50,10 +55,12 @@ class ViewsBootstrapPanelPluginStyle extends views_plugin_style {
       $field_labels = $this->display->handler->get_field_labels(TRUE);
       $form['title'] = array(
         '#type' => 'checkbox',
-        '#title' => t('Use title.'),
+        '#title' => t('Use panel-title class'),
         '#default_value' => $this->options['title'],
-        '#dependency' => array(
-          'heading-field' => array_keys($field_labels),
+        '#states' => array(
+          'invisible' => array(
+            ':input#heading-field' => array('value' => ''),
+          ),
         ),
         '#id' => 'title-checkbox',
       );
@@ -72,18 +79,24 @@ class ViewsBootstrapPanelPluginStyle extends views_plugin_style {
         '#options' => $t_options,
         '#default_value' => $this->options['title_tag'],
         '#description' => t('Select the tag to use around the title.'),
-        '#dependency' => array(
-          'heading-field' => array_keys($field_labels),
+        '#states' => array(
+          'visible' => array(
+            ':input#title-checkbox' => array('checked' => TRUE),
+          ),
         ),
       );
-
-      $form['body_field'] = array(
+      $form['label_field'] = array(
         '#type' => 'select',
-        '#title' => t('Body field'),
+        '#title' => t('Label field'),
         '#options' => $options,
-        '#required' => TRUE,
-        '#default_value' => $this->options['body_field'],
-        '#description' => t('Select the field that will be used as the body.'),
+        '#required' => FALSE,
+        '#default_value' => $this->options['label_field'],
+        '#description' => t('Select the field that will be used as the label.'),
+        '#states' => array(
+          'invisible' => array(
+            ':input#heading-field' => array('value' => ''),
+          ),
+        ),
       );
       $form['footer_field'] = array(
         '#type' => 'select',
@@ -94,19 +107,19 @@ class ViewsBootstrapPanelPluginStyle extends views_plugin_style {
       );
 
       $c_options = array(
-        'default' => 'default',
-        'primary' => 'primary',
-        'success' => 'success',
-        'info' => 'info',
-        'warning' => 'warning',
-        'danger' => 'danger',
+        'default' => t('Default'),
+        'primary' => t('Primary'),
+        'success' => t('Success'),
+        'info' => t('Info'),
+        'warning' => t('Warning'),
+        'danger' => t('Danger'),
       );
       $form['context'] = array(
         '#type' => 'select',
-        '#title' => t('Context'),
+        '#title' => t('Contextual class'),
         '#options' => $c_options,
         '#default_value' => $this->options['context'],
-        '#description' => t('Contextual state.'),
+        '#description' => t('<a href="!docs">see Bootstrap documentation</a>', ['!docs' => 'https://getbootstrap.com/docs/3.4/components/#panels-alternatives']),
       );
     }
   }

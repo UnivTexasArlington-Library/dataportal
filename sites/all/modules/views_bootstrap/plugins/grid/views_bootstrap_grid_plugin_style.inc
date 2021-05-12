@@ -33,6 +33,11 @@ class ViewsBootstrapGridPluginStyle extends views_plugin_style {
   public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
+    $form['help'] = array(
+      '#markup' => t('The Bootstrap grid displays content in a responsive, mobile first fluid grid (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/grid']),
+      '#weight' => -99,
+    );
+
     $form['alignment'] = array(
       '#type' => 'radios',
       '#title' => t('Alignment'),

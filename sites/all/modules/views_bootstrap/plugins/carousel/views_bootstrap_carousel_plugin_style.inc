@@ -30,6 +30,11 @@ class ViewsBootstrapCarouselPluginStyle extends views_plugin_style {
   public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
+    $form['help'] = array(
+      '#markup' => t('The Bootstrap carousel displays content as a slideshow (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/carousel']),
+      '#weight' => -99,
+    );
+
     $form['interval'] = array(
       '#type' => 'textfield',
       '#required' => TRUE,

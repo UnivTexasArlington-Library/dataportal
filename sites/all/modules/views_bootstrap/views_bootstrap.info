@@ -27,8 +27,8 @@ files[] = plugins/list_group/views_bootstrap_list_group_plugin_style.inc
 
 files[] = plugins/dropdown/views_bootstrap_dropdown_plugin_style.inc
 
-; Information added by Drupal.org packaging script on 2020-09-29
-version = "7.x-3.4"
+; Information added by Drupal.org packaging script on 2020-10-27
+version = "7.x-3.5"
 core = "7.x"
 project = "views_bootstrap"
-datestamp = "1601403100"
+datestamp = "1603824297"

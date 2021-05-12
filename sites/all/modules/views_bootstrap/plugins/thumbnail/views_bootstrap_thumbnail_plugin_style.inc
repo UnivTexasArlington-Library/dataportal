@@ -33,6 +33,11 @@ class ViewsBootstrapThumbnailPluginStyle extends views_plugin_style {
   public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
+    $form['help'] = array(
+      '#markup' => t('The Bootstrap thumbnails extends the grid display with the thumbnail component to showcase linked images (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/thumbnail']),
+      '#weight' => -99,
+    );
+
     $form['alignment'] = array(
       '#type' => 'radios',
       '#title' => t('Alignment'),

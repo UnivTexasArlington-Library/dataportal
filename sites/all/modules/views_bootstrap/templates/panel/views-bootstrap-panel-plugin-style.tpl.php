@@ -13,6 +13,9 @@ if (!empty($title)): ?>
     <div class="panel panel-<?php print $context ?>">
       <?php if (isset($headers[$key])): ?>
         <div class="panel-heading">
+          <?php if (isset($labels[$key])): ?>
+            <span class="badge pull-right"><?php print $labels[$key] ?></span>
+          <?php endif ?>
           <?php if ($title_flag): ?>
             <<?php print $title_tag; ?> class="panel-title">
           <?php endif ?>
@@ -23,11 +26,9 @@ if (!empty($title)): ?>
         </div>
       <?php endif ?>
 
-      <?php if (isset($bodys[$key])): ?>
         <div class="panel-body">
-          <?php print $bodys[$key] ?>
+          <?php print $row ?>
         </div>
-      <?php endif ?>
 
       <?php if (isset($footers[$key])): ?>
         <div class="panel-footer">

@@ -34,10 +34,14 @@ function template_preprocess_views_bootstrap_carousel_plugin_style(&$vars) {
     'data-pause' => $vars['options']['pause'] ? 'hover' : 'false',
     'data-wrap' => (bool) $vars['options']['wrap'] ? 'true' : 'false',
   );
-
-  $vars['navigation'] = (bool) $vars['options']['navigation'];
-  $vars['indicators'] = (bool) $vars['options']['indicators'];
-
+  if (count($vars['rows']) > 1) {
+    $vars['navigation'] = (bool) $vars['options']['navigation'];
+    $vars['indicators'] = (bool) $vars['options']['indicators'];
+  }
+  else {
+    $vars['navigation'] = FALSE;
+    $vars['indicators'] = FALSE;
+  }
   $keys = array_keys($vars['rows']);
   $vars['first_key'] = reset($keys);
 }

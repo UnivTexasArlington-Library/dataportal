@@ -27,6 +27,11 @@ class ViewsBootstrapTablePluginStyle extends views_plugin_style_table {
   public function options_form(&$form, &$form_state) {
     parent::options_form($form, $form_state);
 
+    $form['help'] = array(
+      '#markup' => t('The Bootstrap table style adds default Bootstrap table classes and optional classes (<a href="!docs">see documentation</a>).', ['!docs' => 'https://www.drupal.org/docs/7/modules/views-bootstrap/table']),
+      '#weight' => -99,
+    );
+
     $form['responsive'] = array(
       '#type' => 'checkbox',
       '#title' => t('Responsive'),
