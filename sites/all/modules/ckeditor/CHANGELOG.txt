@@ -1,6 +1,14 @@
 7.x-1.x-dev
 Development snapshot
 
+2021-11-22
+New stable release: 7.x-1.22
+
+[#3236569] by VladimirAus, vokiel: Error during updb: "Error: Call to undefined function ckeditor_module_path() in ckeditor_update_7006()"
+[#3250088] by hargobind: UI Color Picker broken with custom skins path
+[#3243038] by Pavel_SPN: Notice on ckeditor_load_by_field() after switching to PHP7.4
+[#3250036] by vokiel: Upgrade CKEditor to 4.17.1 (CVE-2021-41165 & CVE-2021-41164)
+
 2021-08-30
 New stable release: 7.x-1.21
 Reverted [#2648232] by vokiel, jordisan: Drupal is not defined

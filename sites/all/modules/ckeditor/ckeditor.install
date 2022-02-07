@@ -595,6 +595,7 @@ function ckeditor_update_7006() {
     return t('No translations to fix as the locale system is not enabled.');
   }
 
+  module_load_include('module', 'ckeditor');
   $module_path = ckeditor_module_path('url');
 
   $javascript = [

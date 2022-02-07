@@ -1296,12 +1296,14 @@ function ckeditor_load_by_field($field, $format, $show_toggle = TRUE, $add_field
 
   if ($profile === FALSE) {
     $ckeditor_in_default_format = FALSE;
-    foreach ((array) $format_arr['#options'] as $key => $val) {
-      if ($key == $format)
-        continue;
-      if ($profile = ckeditor_get_profile($key)) {
-        $use_ckeditor = $key;
-        break;
+    if (isset($format_arr['#options'])) {
+      foreach ((array) $format_arr['#options'] as $key => $val) {
+        if ($key == $format)
+          continue;
+        if ($profile = ckeditor_get_profile($key)) {
+          $use_ckeditor = $key;
+          break;
+        }
       }
     }
     if ($use_ckeditor === FALSE) {
