@@ -161,6 +161,8 @@ function override_node_options_settings_form_submit(&$form, &$form_state) {
   $role_names = user_roles();
   $revoke = array();
 
+  $alert = FALSE;
+
   if (!in_array('specific', $new_perms, TRUE) && in_array('specific', $old_perms, TRUE)) {
     $alert = TRUE;
     $permissions = array();
@@ -206,18 +208,23 @@ function override_node_options_settings_form_submit(&$form, &$form_state) {
 
   if ($alert) {
     if (user_access('administer permissions')) {
-      $arguments = array('!permissions' => l(t('the permissions page'), 'admin/config/people/permissions', array('fragment' => 'module-override_node_options')));
-      $message .= t(' Please visit !permissions and double check access.');
+      $arguments = array(
+        '!permissions' => l(
+          t('the permissions page'),
+          'admin/config/people/permissions',
+          array('fragment' => 'module-override_node_options')
+        )
+      );
+      $message .= t('Please visit !permissions and double check access.');
       $status = 'warning';
     }
     else {
-      $message .= t(' Please visit the permissions page and double check access.');
+      $message .= t('Please visit the permissions page and double check access.');
     }
   }
 
   drupal_set_message(t($message, $arguments), $status);
 }
-
 
 /**
  * Implements hook_form_alter().
@@ -238,29 +245,27 @@ function override_node_options_form_alter(&$form, &$form_state, $form_id) {
     $form['author']['name']['#access'] = user_access('override ' . $node->type . ' authored by option') || user_access('override all authored by option');
     $form['author']['date']['#access'] = user_access('override ' . $node->type . ' authored on option') || user_access('override all authored on option');
     if (array_key_exists('#access', $form['author'])) {
-      $form['author']['#access'] |= element_get_visible_children($form['author']);
+      $form['author']['#access'] |= (bool) element_get_visible_children($form['author']);
     }
     else {
       $form['author']['#access'] = element_get_visible_children($form['author']);
     }
 
     // Add access to the 'Publishing options' fieldset.
-    $form['options']['status']['#access'] = user_access(sprintf('override %s published option', $node->type));
-    $form['options']['promote']['#access'] = user_access(sprintf('override %s promote to front page option', $node->type));
-    $form['options']['sticky']['#access'] = user_access(sprintf('override %s sticky option', $node->type));
+    $form['options']['status']['#access'] = user_access('override ' . $node->type . ' published option') || user_access('override all published option');
+    $form['options']['promote']['#access'] = user_access('override ' . $node->type . ' promote to front page option') || user_access('override all promote to front page option');
+    $form['options']['sticky']['#access'] = user_access('override ' . $node->type . ' sticky option') || user_access('override all sticky option');
 
-    // If access is granted for promote or sticky, show (but disable) status.
+    // If access is granted for promote or sticky but not for status, show
+    // status but disable it.
     // This keeps core's JS working, and correctly populates the vertical tab.
     if ($form['options']['status']['#access'] == FALSE && ($form['options']['promote']['#access'] || $form['options']['sticky']['#access'])) {
       $form['options']['status']['#access'] = TRUE;
       $form['options']['status']['#disabled'] = TRUE;
     }
 
-    $form['options']['status']['#access'] = user_access('override ' . $node->type . ' published option') || user_access('override all published option');
-    $form['options']['promote']['#access'] = user_access('override ' . $node->type . ' promote to front page option') || user_access('override all promote to front page option');
-    $form['options']['sticky']['#access'] = user_access('override ' . $node->type . ' sticky option') || user_access('override all sticky option');
     if (array_key_exists('#access', $form['options'])) {
-      $form['options']['#access'] |= element_get_visible_children($form['options']);
+      $form['options']['#access'] |= (bool) element_get_visible_children($form['options']);
     }
     else {
       $form['options']['#access'] = element_get_visible_children($form['options']);
