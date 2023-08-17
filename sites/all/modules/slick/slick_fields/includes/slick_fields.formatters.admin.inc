@@ -12,7 +12,6 @@ function _slick_fields_field_formatter_settings_form($field, $instance, $view_mo
   form_load_include($form_state, 'inc', 'slick', 'includes/slick.admin');
 
   $path       = drupal_get_path('module', 'slick_fields');
-  $slick_path = drupal_get_path('module', 'slick');
   $display    = $instance['display'][$view_mode];
   $settings   = $display['settings'];
   $field_type = $field['type'];
@@ -29,7 +28,6 @@ function _slick_fields_field_formatter_settings_form($field, $instance, $view_mo
   $elements       = $options = array();
   $layout_builtin = slick_layouts();
   $optionsets     = slick_optionset_options();
-  $readme         = url($slick_path . '/README.txt');
   $image_styles   = image_style_options(FALSE, PASS_THROUGH);
   $is_views_ui    = '';
 

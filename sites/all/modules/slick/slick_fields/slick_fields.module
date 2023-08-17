@@ -24,17 +24,12 @@ function slick_fields_field_formatter_view($entity_type, $entity, $field, $insta
   $element = array();
   $items   = array_filter($items);
 
-  if (empty($items)) {
-    return $element;
-  }
-
-  if ($display['type'] != 'slick') {
+  if (empty($items) || $display['type'] != 'slick') {
     return $element;
   }
 
   list($entity_id, , $bundle) = entity_extract_ids($entity_type, $entity);
 
-  $slick_path = drupal_get_path('module', 'slick');
   $field_name = $field['field_name'];
   $id         = slick_html_id("slick-{$entity_type}-{$entity_id}-{$bundle}-{$field_name}");
   $thumb_id   = $id . '-thumbnail';

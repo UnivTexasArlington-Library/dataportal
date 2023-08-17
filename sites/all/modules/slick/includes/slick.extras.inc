@@ -279,7 +279,9 @@ function slick_color_brightness($hex, $steps) {
 /**
  * Gets a media URL from the rendered iframe already containing all the params.
  *
- * @deprecated for slick_extract_media_data().
+ * @deprecated in slick:7.x-2.0 and is removed from slick:7.x-3.0. Use
+ *   slick_extract_media_data() instead.
+ * @see https://www.drupal.org/node/3031759
  */
 function slick_get_media_url(array &$settings, array &$media, $file = NULL) {
   slick_extract_media_data($settings, $media, $file);

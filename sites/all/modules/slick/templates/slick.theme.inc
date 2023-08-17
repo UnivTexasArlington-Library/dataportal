@@ -135,14 +135,13 @@ function template_preprocess_slick(&$variables) {
     $content_attributes['id'] = $attributes['id'] . '-slider';
 
     // The slider must have the attribute "dir" set to "rtl", if so configured.
-    if (!empty($js['rtl'])) {
-      $attributes['dir'] = 'rtl';
-    }
+    global $language;
+    $attributes['dir'] = $language->direction ? 'rtl' : 'ltr';
+    $js['rtl'] = $language->direction ? TRUE : FALSE;
 
     // Arrows are enforced to allow responsive options hide/show them.
-    $tags = '<a><em><strong><button><p><div><i><span>';
-    $settings['prev_arrow'] = strip_tags($js['prevArrow'], $tags);
-    $settings['next_arrow'] = strip_tags($js['nextArrow'], $tags);
+    $settings['prev_arrow'] = strip_tags($js['prevArrow']);
+    $settings['next_arrow'] = strip_tags($js['nextArrow']);
 
     // Adds helper class if thumbnail on dots hover provided.
     $js['dotsClass'] = empty($js['dotsClass']) ? 'slick-dots' : $js['dotsClass'];
@@ -431,7 +430,7 @@ function theme_slick_image(array $variables) {
     if (!empty($settings['background'])) {
       // @todo Blazy integration with multi-serving bakground images.
       // slick_build_breakpoint_attributes($attributes, $settings);
-      $attributes['class'][] = 'media--background';
+      $attributes['class'][] = 'b-bg media--background';
     }
 
     if (!empty($settings['lazy'])) {

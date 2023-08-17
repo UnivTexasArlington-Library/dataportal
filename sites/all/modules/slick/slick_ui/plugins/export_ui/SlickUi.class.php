@@ -231,7 +231,7 @@ class SlickUi extends ctools_export_ui {
 
       // Expand textfield for easy edit.
       if (in_array($name, array('prevArrow', 'nextArrow'))) {
-        $form['options']['settings'][$name]['#attributes']['class'][] = 'js-expandable';
+        $form['options']['settings'][$name]['#default_value'] = trim(strip_tags($default_value));
       }
     }
 
@@ -333,7 +333,7 @@ class SlickUi extends ctools_export_ui {
               unset($responsive['title'], $responsive['type']);
 
               if (!is_array($responsive)) {
-                continue;
+                break;
               }
               foreach ($responsive as $k => $item) {
                 if ($item && !is_array($item)) {
@@ -558,14 +558,14 @@ class SlickUi extends ctools_export_ui {
 
       $elements['prevArrow'] = array(
         'title' => t('Previous arrow'),
-        'description' => t("Customize the previous arrow markups. Be sure to keep the expected class: slick-prev."),
+        'description' => t("Customize the previous arrow text."),
         'type' => 'textfield',
         'states' => array('visible' => array(':input[name*="options[settings][arrows]"]' => array('checked' => TRUE))),
       );
 
       $elements['nextArrow'] = array(
         'title' => t('Next arrow'),
-        'description' => t("Customize the next arrow markups. Be sure to keep the expected class: slick-next."),
+        'description' => t("Customize the next arrow text."),
         'type' => 'textfield',
         'states' => array('visible' => array(':input[name*="options[settings][arrows]"]' => array('checked' => TRUE))),
       );
@@ -866,8 +866,8 @@ class SlickUi extends ctools_export_ui {
       'initialSlide'     => 0,
       'lazyLoad'         => 'ondemand',
       'mousewheel'       => FALSE,
-      'prevArrow'        => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button">Previous</button>',
-      'nextArrow'        => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button">Next</button>',
+      'prevArrow'        => 'Previous',
+      'nextArrow'        => 'Next',
       'rtl'              => FALSE,
       'rows'             => 1,
       'slidesPerRow'     => 1,

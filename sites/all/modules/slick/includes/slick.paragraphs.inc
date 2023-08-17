@@ -33,7 +33,6 @@ function slick_format_paragraphs($items, array &$settings) {
     $view    = $entity->view($view_mode);
     $id      = array_keys($view[$entity_type]);
     $id      = reset($id);
-    $fields  = $view[$entity_type][$id];
 
     // Main background image can be core Image, or File entity, multi or single.
     $settings['delta'] = $key;
@@ -59,13 +58,6 @@ function slick_format_paragraphs($items, array &$settings) {
 
     // Main slide overlays.
     if ($settings['current_display'] == 'main') {
-      // Nested slicks, or image/video/audio overlays applies to main display.
-      // EMW fails to check empty for disabled fields, so use the fields.
-      if (!empty($settings['slide_overlay']) && isset($fields[$settings['slide_overlay']])) {
-        $slides = $wrapper->{$settings['slide_overlay']}->value();
-        $renderables = $fields[$settings['slide_overlay']];
-      }
-
       // Build the fieldable captions.
       slick_get_caption($settings, $entity_type, $entity, $slide);
 

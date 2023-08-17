@@ -334,7 +334,7 @@ TROUBLESHOOTING
 
 - A Slick instance may be cached by its ID. Having two different slicks with the
   same ID will cause the first one cached override the second.
-  IDs are guaranteed unique if using sub-modules. However if you do custom works,
+  IDs are guaranteed unique if using sub-modules. Yet if you do custom works,
   or input one at Slick Views UI, be sure to have unique IDs as they should be.
   Be sure no useless/ sensitive data such as "Edit link" as they may be rendered
   as is regardless permissions.

@@ -21,7 +21,18 @@
  */
 class SlickTestCase extends DrupalWebTestCase {
 
+  /**
+   * The admin object.
+   *
+   * @var object
+   */
   protected $adminUser;
+
+  /**
+   * The any user object.
+   *
+   * @var object
+   */
   protected $anyUser;
 
   /**
@@ -78,7 +89,7 @@ class SlickTestCase extends DrupalWebTestCase {
 
     // Login as the admin user.
     $this->drupalLogin($this->adminUser);
-    $testsets  = array('testset1', 'testset2');
+    $testsets = array('testset1', 'testset2');
 
     foreach ($testsets as $name) {
       // Create a new optionset with default settings.
@@ -263,6 +274,12 @@ class SlickTestCase extends DrupalWebTestCase {
   public function getOptions() {
     // Valid optionset data.
     $defaults = slick_get_options();
+
+    // Exclude non UI options, but included as defaults for formatters, or
+    // outside the designated main form elements.
+    unset($defaults['mousewheel']);
+    unset($defaults['randomize']);
+
     $valid = array(
       'set1' => $defaults,
       'set2' => array(

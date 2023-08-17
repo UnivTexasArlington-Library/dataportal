@@ -135,7 +135,6 @@ function slick_format_field_collection($items, $langcode, array &$settings) {
  */
 function _slick_build_fc_overlay(&$settings, $wrapper, $options = array()) {
   $elements     = array();
-  $key          = $options['key'];
   $items        = $wrapper->{$settings['slide_overlay']}->value();
   $renderables  = $options['fields'][$settings['slide_overlay']];
   $entity_id    = $settings['entity_id'];

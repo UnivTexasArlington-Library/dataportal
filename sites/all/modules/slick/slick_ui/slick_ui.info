@@ -7,8 +7,8 @@ dependencies[] = slick
 
 configure = admin/config/media/slick/ui
 
-; Information added by Drupal.org packaging script on 2018-12-19
-version = "7.x-2.1"
+; Information added by Drupal.org packaging script on 2023-07-05
+version = "7.x-2.2"
 core = "7.x"
 project = "slick"
-datestamp = "1545225486"
+datestamp = "1688600366"

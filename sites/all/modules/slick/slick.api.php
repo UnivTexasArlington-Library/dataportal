@@ -106,7 +106,7 @@ function my_module_render_slick_detail() {
   // title, alt, link, overlay, editor, or data for complex content.
   // Sanitize each sub-key content accordingly.
   // @see template_preprocess_slick_item() for more info.
-  $items = array();
+  $items = $rows = array();
   foreach ($rows as $key => $row) {
     $items[] = array(
       'slide' => $row,

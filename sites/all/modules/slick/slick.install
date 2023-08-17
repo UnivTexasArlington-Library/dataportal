@@ -44,7 +44,9 @@ function slick_requirements($phase) {
  * Implements hook_uninstall().
  */
 function slick_uninstall() {
-  db_query("DELETE FROM {variable} WHERE name LIKE 'slick_%'");
+  foreach (array('admin_css', 'module_css', 'css') as $key) {
+    variable_del('slick_' . $key);
+  }
 }
 
 /**
@@ -152,4 +154,26 @@ function slick_update_7007() {
   foreach ($optionsets as $optionset) {
     slick_optionset_save($optionset);
   }
+}
+
+/**
+ * Removed HTML tags from arrows due to translation issue as per #3075838.
+ */
+function slick_update_7008() {
+  module_load_include('inc', 'slick', 'includes/slick.admin');
+
+  // Configuration translation disallowed HTML.
+  // See https://drupal.org/node/3075838
+  foreach (slick_optionset_load_all() as &$optionset) {
+    foreach (array('prevArrow', 'nextArrow') as $key) {
+      // Don't bother with Optimized ON, as arrows are removed already.
+      if ($value = $optionset->options['settings'][$key]) {
+        $optionset->options['settings'][$key] = trim(strip_tags($value));
+      }
+    }
+    ctools_export_crud_save('slick_optionset', $optionset);
+  }
+
+  // Rebuild CTools cache for the slick_optionset.
+  ctools_export_load_object_reset('slick_optionset');
 }

@@ -1,4 +1,21 @@
 
+Slick 7.x-2.1-dev, 2023-07-06
+-----------------------------
+- Issue #3354209 by vimal_nadar, lesleyfernandes: Undefined property:
+  DrushMakeProject_Library::$type make.project.inc:165
+
+Slick 7.x-2.1-dev, 2020-01-14
+-----------------------------
+- Issue #3075018 by gausarts, drumm: Pin to specific library versions.
+
+Slick 7.x-2.1-dev, 2019-04-03
+-----------------------------
+- Issue #3025486 by philsward: Breakpoint Arrows Don'\''t work well with
+  variable slides.
+- Issue #2566935 by bwaindwain, teknikqa, arefen, shaal: Working with RTL
+  themes.
+- Backported few 3.x improvements.
+
 Slick 7.x-2.1-dev, 2018-12-19
 -----------------------------
 - Yeeeha! 7.x-2.1 is out after 3 years of dev storms.
@@ -81,7 +98,8 @@ Slick 7.x-2.0-dev, 2016-06-16
 
 Slick 7.x-2.0-dev, 2016-06-10
 -----------------------------
-- #2745803 by 3blake7: Undefined index: path in slick_fields_field_formatter_view().
+- #2745803 by 3blake7: Undefined index: path in
+  slick_fields_field_formatter_view().
 - Added "Use CSS background" option to simplify the cumbersome "inline css"
   normally provided via hook_slick_skins_info(), and fully lazyloaded as well.
   Be sure to re-save the formatter and enable "Use CSS background" if previously
@@ -360,7 +378,8 @@ Slick 7.x-2.0-dev, 2015-8-19
   This is also to smoothen the transition out to Slick 3.x.
 - Added support for iframe only aspect ratio.
 - Added support for Youtube or Vimeo url using plain text field within file
-  entity of type image to display a video overlay over the main image background.
+  entity of type image to display a video overlay over the main image
+  background.
   Provided as currently file entity doesn't support nested files.
 - Added slick_get_grid_elements() and slick_build_grids() to reuse grid for
   field formatter and Views.

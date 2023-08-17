@@ -383,8 +383,10 @@ function slick_get_media_fields($instance, $widget_types = NULL) {
     $fields = field_info_instances('file', $media_type);
     foreach ($fields as $key => $media_field) {
       $type = $media_field['widget']['type'];
-      if ($widget_types && in_array($type, $widget_types)) {
-        $options[$key] = $media_field['label'];
+      if ($widget_types) {
+        if (in_array($type, $widget_types)) {
+          $options[$key] = $media_field['label'];
+        }
       }
       else {
         $options[$key] = $media_field['label'];

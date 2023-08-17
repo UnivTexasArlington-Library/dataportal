@@ -74,6 +74,35 @@ function slick_library() {
 }
 
 /**
+ * Implements hook_libraries_info().
+ */
+function slick_libraries_info() {
+  $libraries['slick'] = array(
+    'name' => 'Slick carousel',
+    'vendor url' => 'http://kenwheeler.github.io/slick/',
+    'download url' => 'https://github.com/kenwheeler/slick/releases',
+    'version arguments' => array(
+      'file' => 'slick/slick.js',
+      'pattern' => '@Version:\s+([0-9a-zA-Z\.-]+)@',
+      'lines' => 16,
+    ),
+    'files' => array('js' => array('slick/slick.min.js')),
+    'variants' => array(
+      'minified' => array(
+        'files' => array(
+          'js' => array(
+            'slick/slick.min.js',
+          ),
+        ),
+      ),
+      'source' => array('files' => array('js' => array('slick/slick.js'))),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
  * Returns an array of default options available for a Slick instance.
  */
 function slick_get_options() {
@@ -89,8 +118,8 @@ function slick_get_options() {
       'pauseOnHover'     => TRUE,
       'pauseOnDotsHover' => FALSE,
       'arrows'           => TRUE,
-      'prevArrow'        => '<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button">Previous</button>',
-      'nextArrow'        => '<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button">Next</button>',
+      'prevArrow'        => 'Previous',
+      'nextArrow'        => 'Next',
       'centerMode'       => FALSE,
       'centerPadding'    => '50px',
       'dots'             => FALSE,
@@ -226,7 +255,7 @@ function slick_optionset_load($id = 'default') {
  * @return object
  *   Returns the programmatically created optionset object.
  */
-function slick_optionset_create($values = array()) {
+function slick_optionset_create(array $values = array()) {
   ctools_include('export');
   $optionset = ctools_export_crud_new('slick_optionset');
 
@@ -255,10 +284,10 @@ function slick_optionset_create($values = array()) {
  * @return array
  *   The cacheable array formatted for the '#attached' property.
  */
-function slick_attach(array $attach, $settings = array()) {
-  $path   = drupal_get_path('module', 'slick');
-  $main   = slick_get_skins_by_group('main');
-  $load   = array();
+function slick_attach(array $attach, array $settings = array()) {
+  $path    = drupal_get_path('module', 'slick');
+  $main    = slick_get_skins_by_group('main');
+  $load    = array();
   $attach += array(
     'attach_slick_css'  => variable_get('slick_css', TRUE),
     'attach_module_css' => variable_get('slick_module_css', TRUE),
@@ -358,7 +387,7 @@ function slick_attach(array $attach, $settings = array()) {
  * @return array
  *   The cacheable renderable array of a slick instance, or empty array.
  */
-function slick_build($items = array(), $options = array(), $settings = array(), $attach = array(), $id = NULL, $optionset = NULL) {
+function slick_build(array $items = array(), array $options = array(), array $settings = array(), array $attach = array(), $id = NULL, $optionset = NULL) {
   if (empty($items)) {
     return array();
   }
