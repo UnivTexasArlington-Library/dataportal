@@ -97,6 +97,20 @@ class CommonURLUnitTest extends DrupalWebTestCase {
     $path = "javascript:alert('XSS')";
     $link = l($text, $path, array('external' => TRUE));
     $this->assertTrue(strpos($link, 'javascript:') === FALSE, 'Dangerous protocol javascript: was sanitized.');
+
+    // Verify that these harmless javascript paths are left intact for BC.
+    $special_case_js_paths = array(
+      'javascript:void()',
+      'javascript:void();',
+      'javascript:void(0)',
+      'javascript:void(0);',
+      'JavaScript:Void(0)'
+    );
+    foreach ($special_case_js_paths as $path) {
+      $text = $this->randomName();
+      $link = l($text, $path, array('external' => TRUE));
+      $this->assertTrue(strpos($link, $path) !== FALSE, format_string('Harmless @path was not sanitized.', array('@path' => $path)));
+    }
   }
 
   /*
@@ -540,13 +554,34 @@ class CommonXssUnitTest extends DrupalUnitTestCase {
    */
   function testBadProtocolStripping() {
     // Ensure that check_url() strips out harmful protocols, and encodes for
-    // HTML. Ensure drupal_strip_dangerous_protocols() can be used to return a
-    // plain-text string stripped of harmful protocols.
+    // HTML.
     $url = 'javascript:http://www.example.com/?x=1&y=2';
-    $expected_plain = 'http://www.example.com/?x=1&y=2';
     $expected_html = 'http://www.example.com/?x=1&amp;y=2';
     $this->assertIdentical(check_url($url), $expected_html, 'check_url() filters a URL and encodes it for HTML.');
-    $this->assertIdentical(drupal_strip_dangerous_protocols($url), $expected_plain, 'drupal_strip_dangerous_protocols() filters a URL and returns plain text.');
+
+    // Ensure that drupal_strip_dangerous_protocols() can be used to return a
+    // plain-text string stripped of harmful protocols.
+    $data = array(
+      'javascript:http://www.example.com/?x=1&y=2' => 'http://www.example.com/?x=1&y=2',
+      'foo://disallowed.com' => '//disallowed.com',
+      'http://example.com' => 'http://example.com',
+      'https://example.com' => 'https://example.com',
+      'www.example.com' => 'www.example.com',
+      'mailto:person2@example.com' => 'mailto:person2@example.com',
+      'person2@example.com' => 'person2@example.com',
+      'ftp://example.com' => 'ftp://example.com',
+      'sftp://secure.host' => 'sftp://secure.host',
+      'ssh://odd.geek' => 'ssh://odd.geek',
+      'news://example.net' => 'news://example.net',
+      'telnet://example' => 'telnet://example',
+      'irc://example.host' => 'irc://example.host',
+      'webcal://calendar' => 'webcal://calendar',
+      'rtsp://127.0.0.1' => 'rtsp://127.0.0.1',
+      'tel:111111111' => 'tel:111111111',
+    );
+    foreach ($data as $url => $expected_plain) {
+      $this->assertIdentical(drupal_strip_dangerous_protocols($url), $expected_plain, 'drupal_strip_dangerous_protocols() filters a URL and returns plain text.');
+    }
   }
 }
 
@@ -1752,6 +1787,29 @@ class JavaScriptTestCase extends DrupalWebTestCase {
   }
 
   /**
+   * Tests the double submit form protection and
+   * 'javascript_use_double_submit_protection' variable.
+   */
+  function testDoubleSubmitFormProtection() {
+    // The default front page of the site should have the double submit
+    // protection enabled as there is a login block.
+    $this->drupalGet('');
+    $this->assertRaw('misc/form-single-submit.js', 'Default behavior: Double submit protection is enabled.');
+
+    // The default front page should have the double submit protection disabled
+    // when the 'javascript_always_use_jquery' variable is set to FALSE or the
+    // 'javascript_use_double_submit_protection' variable is set to FALSE.
+    variable_set('javascript_always_use_jquery', FALSE);
+    $this->drupalGet('');
+    $this->assertNoRaw('misc/form-single-submit.js', 'When "javascript_always_use_jquery" is FALSE: Double submit protection is disabled.');
+    variable_del('javascript_always_use_jquery');
+    variable_set('javascript_use_double_submit_protection', FALSE);
+    $this->drupalGet('');
+    $this->assertNoRaw('misc/form-single-submit.js', 'When "javascript_use_double_submit_protection" is FALSE: Double submit protection is disabled.');
+    variable_del('javascript_use_double_submit_protection');
+  }
+
+  /**
    * Test drupal_add_js() sets preproccess to false when cache is set to false.
    */
   function testNoCache() {
@@ -2668,6 +2726,12 @@ class DrupalDataApiTest extends DrupalWebTestCase {
     // Update the record.
     $update_result = drupal_write_record('node_access', $node_access, array('nid', 'gid', 'realm'));
     $this->assertTrue($update_result == SAVED_UPDATED, 'Correct value returned when a record is updated with drupal_write_record() for a table with a multi-field primary key.');
+
+    // Insert a new record to the table with a database specific data type.
+    $person = new stdClass();
+    $person->age = 25;
+    $insert_result = drupal_write_record('test_db_specific_datatype', $person);
+    $this->assertTrue($insert_result == SAVED_NEW, 'Correct value returned when a record is inserted with drupal_write_record() for a table with a database specific data type.');
   }
 
 }
@@ -2850,6 +2914,7 @@ class DrupalSystemListingTestCase extends DrupalWebTestCase {
  * Tests for the format_date() function.
  */
 class FormatDateUnitTest extends DrupalWebTestCase {
+  protected $admin_user;
 
   /**
    * Arbitrary langcode for a custom language.
@@ -3316,58 +3381,6 @@ class DrupalGetQueryArrayTestCase extends DrupalWebTestCase {
     $parsed = parse_url($url);
     $result = drupal_get_query_array($parsed['query']);
     $this->assertEqual($result['foo'], "/content/folder[@name='foo']/folder[@name='bar']", 'drupal_get_query_array() should only explode parameters on the first equals sign.');
-  }
-
-}
-
-/**
- * Test for block_interest_cohort.
- */
-class BlockInterestCohortTest extends DrupalWebTestCase {
-
-  public static function getInfo() {
-    return array(
-      'name' => 'Block Interest Cohort',
-      'description' => 'Check Permissions-Policy header to disable Google FLoC',
-      'group' => 'System',
-    );
-  }
-
-  function setUp() {
-    parent::setUp('common_test');
-  }
-
-  /**
-   * Tests that FLoC is blocked by default.
-   */
-  function testDefaultBlocking() {
-    $this->drupalGet('node');
-    $this->assertEqual($this->drupalGetHeader('Permissions-Policy'), 'interest-cohort=()', 'FLoC is blocked by default.');
-  }
-
-  /**
-   * Tests that an existing interest-cohort policy is not overwritten.
-   */
-  function testExistingInterestCohortPolicy() {
-    $this->drupalGet('common-test/existing_interest_cohort_policy');
-    $this->assertEqual($this->drupalGetHeader('Permissions-Policy'), 'interest-cohort=*', 'Existing interest-cohort policy is not overwritten.');
-  }
-
-  /**
-   * Tests that an existing header is appended to correctly.
-   */
-  function testExistingPolicyHeader() {
-    $this->drupalGet('common-test/existing_permissions_policy_header');
-    $this->assertTrue((strpos($this->drupalGetHeader('Permissions-Policy'), 'geolocation=(),interest-cohort=()') !== FALSE), 'The existing header is appended to.');
-  }
-
-  /**
-   * Tests that FLoC blocking can be disabled.
-   */
-  function testDisableBlocking() {
-    variable_set('block_interest_cohort', FALSE);
-    $this->drupalGet('node');
-    $this->assertFalse($this->drupalGetHeader('Permissions-Policy'), 'FLoC blocking can be disabled.');
   }
 
 }

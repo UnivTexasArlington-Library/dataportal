@@ -349,7 +349,7 @@ function taxonomy_overview_terms($form, &$form_state, $vocabulary) {
     $current_page = array_merge($order, $current_page); // Update our form with the new order.
     foreach ($current_page as $key => $term) {
       // Verify this is a term for the current page and set at the current depth.
-      if (is_array($form_state['input'][$key]) && is_numeric($form_state['input'][$key]['tid'])) {
+      if (isset($form_state['input'][$key]) && is_array($form_state['input'][$key]) && is_numeric($form_state['input'][$key]['tid'])) {
         $current_page[$key]->depth = $form_state['input'][$key]['depth'];
       }
       else {
@@ -902,7 +902,6 @@ function taxonomy_term_confirm_delete_submit($form, &$form_state) {
   watchdog('taxonomy', 'Deleted term %name.', array('%name' => $form_state['values']['name']), WATCHDOG_NOTICE);
   $form_state['redirect'] = 'admin/structure/taxonomy';
   cache_clear_all();
-  return;
 }
 
 /**
@@ -942,7 +941,6 @@ function taxonomy_vocabulary_confirm_delete_submit($form, &$form_state) {
   watchdog('taxonomy', 'Deleted vocabulary %name.', array('%name' => $form_state['values']['name']), WATCHDOG_NOTICE);
   $form_state['redirect'] = 'admin/structure/taxonomy';
   cache_clear_all();
-  return;
 }
 
 /**
